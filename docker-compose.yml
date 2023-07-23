@@ -1,9 +1,9 @@
-version: '3.6'
+version: "3.6"
 
 services:
   gitea:
     container_name: gitea
-    image: gitea/gitea:${GITEA_VERSION:-1.10.6}
+    image: gitea/gitea:${GITEA_VERSION:-1.20.1}
     restart: unless-stopped
     environment:
       # https://docs.gitea.io/en-us/install-with-docker/#environments-variables
@@ -18,6 +18,7 @@ services:
       - SSH_PORT=222
       - SSH_LISTEN_PORT=22
       - DB_TYPE=sqlite3
+      # https://github.com/go-gitea/gitea/issues/18402#issuecomment-1046490661
       - GITEA__WEBHOOK__ALLOWED_HOST_LIST=*
     ports:
       - "3000:3000"
@@ -29,7 +30,7 @@ services:
 
   drone:
     container_name: drone
-    image: drone/drone:${DRONE_VERSION:-1.6.4}
+    image: drone/drone:${DRONE_VERSION:-2.18.0}
     restart: unless-stopped
     depends_on:
       - gitea
@@ -54,7 +55,7 @@ services:
 
   drone-runner:
     container_name: drone-runner
-    image: drone/drone-runner-docker:${DRONE_RUNNER_VERSION:-1}
+    image: drone/drone-runner-docker:${DRONE_RUNNER_VERSION:1.8.3}
     restart: unless-stopped
     depends_on:
       - drone
