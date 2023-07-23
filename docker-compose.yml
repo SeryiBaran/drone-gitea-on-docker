@@ -18,6 +18,7 @@ services:
       - SSH_PORT=222
       - SSH_LISTEN_PORT=22
       - DB_TYPE=sqlite3
+      - GITEA__WEBHOOK__ALLOWED_HOST_LIST=*
     ports:
       - "3000:3000"
       - "222:22"
@@ -34,10 +35,8 @@ services:
       - gitea
     environment:
       # https://docs.drone.io/server/provider/gitea/
-      - DRONE_DATABASE_DRIVER=sqlite3
       - DRONE_DATABASE_DATASOURCE=/data/database.sqlite
-      - DRONE_GITEA_SERVER=http://${IP_ADDRESS}:3000/
-      - DRONE_GIT_ALWAYS_AUTH=false
+      - DRONE_GITEA_SERVER=http://${IP_ADDRESS}:3000
       - DRONE_RPC_SECRET=${DRONE_RPC_SECRET}
       - DRONE_SERVER_PROTO=http
       - DRONE_SERVER_HOST=${IP_ADDRESS}:3001
@@ -67,10 +66,7 @@ services:
       - DRONE_RPC_HOST=drone
       - DRONE_RPC_SECRET=${DRONE_RPC_SECRET}
       - DRONE_RUNNER_NAME="${HOSTNAME}-runner"
-      - DRONE_RUNNER_CAPACITY=2
-      - DRONE_RUNNER_NETWORKS=cicd_net
-      - DRONE_DEBUG=false
-      - DRONE_TRACE=false
+      - DRONE_RUNNER_CAPACITY=1
     ports:
       - "3002:3000"
     networks:

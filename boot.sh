@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 export HOSTNAME=$(hostname)
-export DRONE_VERSION=1.10.1
-export DRONE_RUNNER_VERSION=1.6.3
-export GITEA_VERSION=1.13
+export DRONE_VERSION=2.18.0
+export DRONE_RUNNER_VERSION=1.8.3
+export GITEA_VERSION=1.20.1
 export IP_ADDRESS=192.168.0.92 # Replace this by machine IPv4 address
 export GITEA_ADMIN_USER="adminadmin" # Replace this by username of admin
 export DRONE_RPC_SECRET=$(echo ${HOSTNAME} | openssl dgst -md5 -hex)
