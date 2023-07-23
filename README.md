@@ -3,20 +3,13 @@ DroneCI and Gitea on Docker
 
 ## Usage
 
-Set the following in your `boot.sh`:
-
-```
-IP_ADDRESS=192.168.0.6       -> either reachable dns or ip address which will be your clone address and ui addresses.
-GITEA_ADMIN_USER="giteauser" -> will be the user you register with in drone
-```
+Config `boot.sh` by instructions in it.
 
 Now boot the stack:
 
 ```
 $ bash boot.sh
 ```
-
-*Note*: Theres a [current issue](https://github.com/go-gitea/gitea/issues/7702) where webhooks get fired twice, if you see that just restart gitea with `docker restart gitea`.
 
 - Head over to: `http://${IP_ADDRESS}:3000/user/settings/applications` and create a new OAuth2 Application and set the Redirect URI to `http://${IP_ADDRESS}:3001/login`
 
@@ -28,12 +21,6 @@ $ bash boot.sh
 
 Install Drone CLI:
 - https://docs.drone.io/cli/install/
-
-```
-$ curl -L https://github.com/drone/drone-cli/releases/latest/download/drone_darwin_amd64.tar.gz | tar zx
-$ sudo mv drone /usr/local/bin/drone
-$ chmod +x /usr/local/bin/drone
-```
 
 Get your Drone Token:
 - http://${IP_ADDRESS}:3001/account
@@ -57,12 +44,6 @@ $ cat .drone.yml
 kind: pipeline
 type: docker
 name: hello-world
-
-trigger:
-  branch:
-    - master
-  event:
-    - push
 
 steps:
   - name: say-hello
